@@ -1,0 +1,92 @@
+Q1. Write an SQL query to fetch “FIRST_NAME” from Worker table using the alias name as <WORKER_NAME>
+
+Query :
+
+SELECT FIRST_NAME AS WORKER_NAME
+FROM Worker;
+
+Q2. Write an SQL query to fetch unique values of DEPARTMENT from Worker table.
+
+Query :
+
+SELECT DISTINCT DEPARTMENT
+FROM Worker;
+
+
+Q3. Write an SQL query to print details for Workers with the first name as “Vipul” and “Satish” from Worker table. (without OR condition)
+
+Query :
+
+SELECT *
+FROM Worker
+WHERE FIRST_NAME IN ('Vipul', 'Satish');
+
+Q4. Write an SQL query to print details of the Workers whose FIRST_NAME contains ‘a’.
+
+Query :
+
+SELECT *
+FROM Worker
+WHERE FIRST_NAME LIKE '%a%';
+
+Q5. Write an SQL query to print details of the Workers whose FIRST_NAME ends with ‘a’.
+
+Query :
+
+SELECT *
+FROM Worker
+WHERE FIRST_NAME LIKE '%a';
+
+Q6. Write an SQL query to print details of the admin whose SALARY lies between 100000 and 500000.
+
+Query :
+
+SELECT *
+FROM Worker
+WHERE DEPARTMENT = 'Admin'
+AND SALARY BETWEEN 100000 AND 500000;
+
+Q7. Write an SQL query to fetch the count of employees working in the department ‘Admin’.
+
+Query :
+
+SELECT COUNT(*) AS Admin_Count
+FROM Worker
+WHERE DEPARTMENT = 'Admin';
+
+Q8. Write an SQL query to show the second highest salary from a table.
+
+Query :
+
+SELECT MAX(SALARY) AS Second_Highest_Salary
+FROM Worker
+WHERE SALARY < (SELECT MAX(SALARY) FROM Worker);
+
+Q9. Write an SQL query to fetch the departments that have less than three people in it.
+
+Query :
+
+SELECT DEPARTMENT
+FROM Worker
+GROUP BY DEPARTMENT
+HAVING COUNT(*) < 3;
+
+Q10. Write an SQL query to show all departments along with the total number of people in there.
+
+Query :
+
+SELECT DEPARTMENT, COUNT(*) AS Total_People
+FROM Worker
+GROUP BY DEPARTMENT;
+
+Q11. Write an SQL query to print the name of employees having the highest salary in each department.
+
+Query :
+
+SELECT w.FIRST_NAME, w.LAST_NAME, w.DEPARTMENT, w.SALARY
+FROM Worker w
+WHERE SALARY = (
+    SELECT MAX(SALARY)
+    FROM Worker
+    WHERE DEPARTMENT = w.DEPARTMENT
+);
