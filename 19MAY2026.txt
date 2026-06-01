@@ -1,0 +1,148 @@
+USE vitcampus1;
+
+SHOW TABLES FROM vitcampus1;
+
+SELECT * FROM worker;
+
+
+-- OR Operator
+SELECT first_name, department, salary
+FROM worker
+WHERE department = 'Admin'
+OR salary >= 100000;
+
+
+-- NOT IN Operator
+SELECT worker_id, first_name, department, salary
+FROM worker
+WHERE worker_id NOT IN (1, 6, 7);
+
+
+-- NOT BETWEEN Operator
+SELECT *
+FROM worker
+WHERE salary NOT BETWEEN 110000 AND 300000;
+
+
+-- BETWEEN + NOT IN + AND Operator
+SELECT *
+FROM worker
+WHERE salary BETWEEN 100000 AND 500000
+AND department NOT IN ('HR', 'Admin');
+
+
+-- IN Operator
+SELECT first_name, department
+FROM worker
+WHERE department IN ('HR', 'Account');
+
+
+-- BETWEEN Operator
+SELECT first_name, salary
+FROM worker
+WHERE salary BETWEEN 80000 AND 200000;
+
+
+-- AND Operator with IN
+SELECT first_name, department, salary
+FROM worker
+WHERE department IN ('Admin', 'HR')
+AND salary >= 90000;
+
+
+-- OR Operator with BETWEEN
+SELECT first_name, salary
+FROM worker
+WHERE salary BETWEEN 70000 AND 100000
+OR department = 'Account';
+
+
+-- NOT BETWEEN with AND
+SELECT first_name, salary, department
+FROM worker
+WHERE salary NOT BETWEEN 80000 AND 200000
+AND department = 'Admin';
+
+
+-- IN with OR
+SELECT worker_id, first_name, department
+FROM worker
+WHERE department IN ('HR', 'Admin')
+OR salary > 400000;
+
+
+-- NOT IN with AND
+SELECT first_name, department, salary
+FROM worker
+WHERE department NOT IN ('Account')
+AND salary >= 100000;
+
+
+-- Using NOT IN and NOT BETWEEN Together
+SELECT *
+FROM worker
+WHERE department NOT IN ('HR')
+AND salary NOT BETWEEN 90000 AND 300000;
+
+
+SELECT * FROM worker;
+
+-- MIN Function
+SELECT MIN(salary)
+FROM worker
+WHERE department = 'Admin'
+AND first_name NOT LIKE '%a%';
+
+
+-- MAX Function
+SELECT MAX(salary)
+FROM worker
+WHERE department = 'HR'
+AND first_name LIKE '%a%';
+
+
+-- SUM Function
+SELECT SUM(salary)
+FROM worker
+WHERE department IN ('Admin', 'HR');
+
+
+-- AVG Function
+SELECT AVG(salary)
+FROM worker
+WHERE salary BETWEEN 80000 AND 300000;
+
+
+-- COUNT Function
+SELECT COUNT(*)
+FROM worker
+WHERE department = 'Account';
+
+-- UNION OPERATOR
+SELECT salary FROM worker
+UNION
+SELECT salary FROM worker;
+
+select* from worker;
+select worker_id as RollNumber from worker;
+select department from worker;
+select distinct(department) from worker;
+
+SELECT worker_id, first_name,
+CASE
+    WHEN salary >  300000 THEN 'Rich people'
+    WHEN salary > 100000 and salary > 299999 THEN 'Middle Class'
+    ELSE 'Poor'
+END
+AS Status
+FROM worker;
+
+select min(salary) from worker where department ='admin';
+select max(salary) from worker where department ='admin';
+
+create view minSalaryAdmin as select min(salary) from worker where department='admin';
+
+create view mAxSalaryAdmin as select max(salary) from worker where department='admin';
+
+
+select * from maxsalaryadmin;
