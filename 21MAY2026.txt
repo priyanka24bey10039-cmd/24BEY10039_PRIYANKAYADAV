@@ -1,0 +1,89 @@
+Use vitcampus1;
+CREATE TABLE category1 (
+    cid INT PRIMARY KEY,
+    cname VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE products1 (
+    pid INT PRIMARY KEY,
+    pname VARCHAR(100) NOT NULL,
+    cid INT,
+
+    FOREIGN KEY (cid)
+    REFERENCES category(cid)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+);
+
+
+INSERT INTO category1 VALUES
+(1, 'Electronics'),
+(2, 'Clothing'),
+(3, 'Books');
+
+
+INSERT INTO products1 VALUES
+(101, 'Laptop', 1),
+(102, 'Mobile', 1),
+(103, 'T-Shirt', 2),
+(104, 'Novel', 3);
+
+
+SELECT * FROM category1;
+SELECT * FROM products1;
+
+
+UPDATE category1
+SET cid = 10
+WHERE cid = 1;
+
+
+SELECT * FROM category1;
+SELECT * FROM products1;
+
+
+DELETE FROM category1
+WHERE cid = 2;
+
+
+SELECT * FROM category1;
+SELECT * FROM products1;
+
+-- Order By
+select * from worker;
+
+select First_name, department, salary from worker
+where department='admin' order by salary desc;
+
+-- Group By
+select count(worker_id) from worker where department='admin' or department='HR';
+
+select department, count(department) from worker
+group by department having count(department) >=3 order by department asc;
+
+select * from worker limit 2 offset 3;
+
+CREATE TABLE toppers (
+    id INT 
+);
+insert into toppers values(2),(5);
+select * from toppers;
+select worker_id, first_name, department from worker
+where worker_id in (select id from toppers);
+
+-- Find the two departments with the least total salary in worker table.
+SELECT SUM(salary) AS total_salary, department
+FROM worker
+GROUP BY department
+ORDER BY SUM(salary) ASC
+LIMIT 2;
+
+-- Find all departments where the sum of salaries does not exceed 300000.
+SELECT DEPARTMENT,SUM(SALARY) FROM Worker
+GROUP BY DEPARTMENT
+HAVING SUM(SALARY) <=300000;
+
+-- Display the employee with the second highest salary in the Admin department.
+SELECT first_name, department, salary from worker
+WHERE department = 'admin' 
+ORDER BY salary desc limit 1 offset 1;
