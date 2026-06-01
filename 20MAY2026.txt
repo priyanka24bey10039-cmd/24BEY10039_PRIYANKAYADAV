@@ -1,0 +1,79 @@
+show databases;
+use vitcampus1;
+create table Persons (
+    ID int not null,
+    LastName varchar(255) unique not null,
+    FirstName varchar(255) not null,
+    Age int
+);
+desc persons;
+
+insert into persons values (101,'V','divya',null);
+insert into persons values (102,'S','dev',20);
+select * from persons;                                                                                   
+
+alter table Persons add unique (Age);
+insert into persons values (102,'V','divya',21);
+insert into persons values (102,'V','dev',null);                                                                                                                                        create table Persons1 (
+    ID int not null,
+    LastName varchar(255) not null,
+    FirstName varchar(255),
+    Age int,
+    check (Age>=18),
+    city varchar(255) default 'coimbatore'
+);
+desc persons1;
+
+alter table Persons	add check (Age>=18 and age<=21);
+insert into Persons values (111, 'verma', 'Raj', 19);
+insert into Persons values (111, 'verma', 'Raj', 21);
+select * from persons;
+insert into Persons values (112, 'sen', 'Jaya', 18);
+
+create table products (
+    pid int primary key,
+    pname varchar(100) not null,
+    prefno int not null unique
+);
+
+desc products;
+
+insert into products values (101, "electronics",10019 );
+insert into products values (102, "furniture",10029 );
+insert into products values (103, "plants",10039 );
+insert into products values (104, "curtains",10049 );
+
+alter table products drop primary key;
+
+alter table products add primary key (pname);
+
+drop table products;
+
+create table category(
+cid int primary key,
+cname varchar(100) not null
+);
+
+insert into category values (101,'electronics'),(102,'Home App');
+
+select * from category;
+CREATE TABLE products (
+    pid int primary key,
+    pname varchar(100) NOT NULL,
+    cid int, 
+    FOREIGN KEY (cid) REFERENCES category(cid)
+);
+desc products;
+
+insert into products values (501, 'HP laptop', 101);
+insert into products values (502, 'wooden cub', 102);
+insert into products values (503, 'power bank', 101);
+
+delete from products where cid=101;
+delete from category where cid=101;
+
+select * from category;
+
+insert into products values (504,'Power Bank Samsung',101);
+
+select * from products;
